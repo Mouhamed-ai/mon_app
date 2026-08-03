@@ -1,0 +1,2 @@
+import Link from "next/link";
+export default function Study(){return <main className="shell reader"><nav className="nav"><Link className="brand" href="/">۞ Al-Quran</Link><span className="muted">Mémorisation</span></nav><p className="eyebrow" style={{marginTop:40}}>PROGRAMME DU JOUR</p><h1>Mémorisez avec régularité.</h1><article className="card"><b>Objectif du jour</b><p className="muted">Lire et répéter 3 versets de la sourate Al-Fātiḥah.</p><Link className="pill" href="/quran/1">Commencer</Link></article></main>}
