@@ -1,0 +1,4 @@
+import Link from "next/link";
+import { db } from "@/lib/db";
+export const dynamic = "force-dynamic";
+export default async function Quran(){const surahs=await db.surah.findMany({orderBy:{id:"asc"},select:{id:true,arabicName:true,nameFr:true,versesCount:true}});return <main className="shell"><nav className="nav"><Link className="brand" href="/">۞ Al-Quran</Link><span className="muted">Le Coran</span></nav><section className="reader"><p className="eyebrow">SOURATES</p><h1>Le Saint Coran</h1>{surahs.length?surahs.map(s=><Link className="card" style={{display:"block",margin:"10px 0"}} key={s.id} href={`/quran/${s.id}`}><b>{s.id}. {s.nameFr}</b><span style={{float:"right",fontFamily:"serif",fontSize:22}}>{s.arabicName}</span><p className="muted">{s.versesCount} versets</p></Link>):<p className="muted">Initialisez la base : <code>npm run db:seed</code>.</p>}</section></main>}

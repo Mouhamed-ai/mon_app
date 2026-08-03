@@ -1,0 +1,12 @@
+generator client { provider = "prisma-client-js" }
+datasource db { provider = "postgresql" url = env("DATABASE_URL") }
+
+enum ProgressStatus { NOT_STARTED IN_PROGRESS MEMORIZED REVIEW }
+model User { id String @id @default(cuid()) name String? email String @unique passwordHash String? avatar String? createdAt DateTime @default(now()) bookmarks Bookmark[] notes Note[] progress Progress[] studyPlans StudyPlan[] }
+model Surah { id Int @id arabicName String nameFr String nameEn String transliteration String versesCount Int revelationType String juzStart Int ayahs Ayah[] }
+model Ayah { id Int @id surahId Int numberInSurah Int arabicText String translationFr String? translationEn String? transliteration String? tafsirIbnKathir String? tafsirSaadi String? simpleExplanation String? asbabAlNuzul String? surah Surah @relation(fields:[surahId],references:[id],onDelete:Cascade) audio Audio[] bookmarks Bookmark[] notes Note[] progress Progress[] @@unique([surahId,numberInSurah]) }
+model Audio { id String @id @default(cuid()) ayahId Int reciter String url String durationSeconds Int? ayah Ayah @relation(fields:[ayahId],references:[id],onDelete:Cascade) @@unique([ayahId,reciter]) }
+model Bookmark { id String @id @default(cuid()) userId String ayahId Int createdAt DateTime @default(now()) user User @relation(fields:[userId],references:[id],onDelete:Cascade) ayah Ayah @relation(fields:[ayahId],references:[id],onDelete:Cascade) @@unique([userId,ayahId]) }
+model Note { id String @id @default(cuid()) userId String ayahId Int content String category String? createdAt DateTime @default(now()) updatedAt DateTime @updatedAt user User @relation(fields:[userId],references:[id],onDelete:Cascade) ayah Ayah @relation(fields:[ayahId],references:[id],onDelete:Cascade) }
+model Progress { id String @id @default(cuid()) userId String ayahId Int status ProgressStatus @default(NOT_STARTED) lastReadAt DateTime? user User @relation(fields:[userId],references:[id],onDelete:Cascade) ayah Ayah @relation(fields:[ayahId],references:[id],onDelete:Cascade) @@unique([userId,ayahId]) }
+model StudyPlan { id String @id @default(cuid()) userId String title String dailyTarget Int @default(5) user User @relation(fields:[userId],references:[id],onDelete:Cascade) }

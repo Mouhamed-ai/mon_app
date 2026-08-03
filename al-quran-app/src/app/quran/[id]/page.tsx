@@ -1,0 +1,4 @@
+import { notFound } from "next/navigation";
+import { db } from "@/lib/db";
+export const dynamic = "force-dynamic";
+export default async function Reading({params}:{params:Promise<{id:string}>}){const {id}=await params;const surah=await db.surah.findUnique({where:{id:Number(id)},include:{ayahs:{orderBy:{numberInSurah:"asc"}}}});if(!surah)return notFound();return <main className="shell reader"><p className="eyebrow">{surah.revelationType.toUpperCase()} · {surah.versesCount} VERSETS</p><h1>{surah.nameFr} <span className="arabic" style={{fontSize:34}}>{surah.arabicName}</span></h1>{surah.ayahs.map(a=><article className="card" key={a.id} style={{margin:"15px 0"}}><div className="arabic">{a.arabicText}</div><p>{a.translationFr}</p>{a.transliteration&&<p className="muted"><i>{a.transliteration}</i></p>}</article>)}</main>}
