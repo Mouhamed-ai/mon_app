@@ -1,0 +1,12 @@
+{
+  "name": "Nour — Écoute du Coran",
+  "short_name": "Nour",
+  "description": "Écoutez et lisez le Coran, à votre rythme.",
+  "start_url": "./nour-quran.html",
+  "display": "standalone",
+  "background_color": "#fbfbf7",
+  "theme_color": "#173b2e",
+  "lang": "fr",
+  "dir": "ltr",
+  "icons": [{"src":"nour-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
