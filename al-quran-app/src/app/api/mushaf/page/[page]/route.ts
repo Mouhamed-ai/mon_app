@@ -83,7 +83,7 @@ export async function GET(request: NextRequest, context: { params: Promise<{ pag
       : "https://apis-prelive.quran.foundation";
     const accessToken = await getAccessToken();
     const response = await fetch(
-      `${apiBase}/content/api/v4/verses/by_page/${page}?mushaf=1&words=true`,
+      `${apiBase}/content/api/v4/verses/by_page/${page}?mushaf=1&fields=text_uthmani,chapter_id&words=true`,
       { headers: { "x-auth-token": accessToken, "x-client-id": clientId! }, next: { revalidate: 86_400 } },
     );
 
