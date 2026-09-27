@@ -1,4 +1,4 @@
-const CACHE='nour-v4';
+const CACHE='nour-v5';
 const CORE=['./nour-quran.html','./nour-manifest.webmanifest','./nour-icon.svg'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(Promise.all([
